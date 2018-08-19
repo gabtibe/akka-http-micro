@@ -30,7 +30,7 @@ libraryDependencies ++= Seq(
 //  Test Dependencies
   "org.scalatest" %% "scalatest" % "3.0.5" % Test,
   "org.pegdown" % "pegdown" % "1.6.0" % Test,
-  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
   "com.github.fakemongo" % "fongo" % "2.1.0" % Test
 )
 
@@ -38,6 +38,11 @@ testOptions in Test ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports"),
   Tests.Argument(TestFrameworks.ScalaTest, "-h", "target/test-reports")
 )
+
+lazy val root = (project in file("."))
+  .configs(Configs.all: _*)
+  .settings(Testing.settings: _*)
+  .settings()
 
 assemblyJarName in assembly := s"${organization.value}-${name.value}-${version.value}"
 
