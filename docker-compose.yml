@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:3.4.1
+    volumes:
+    - ./data:/data/db
+    ports:
+    - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: user-api
+    command: mongod
+
+  akka-http-test:
+    image:
+      default/akka-http-micro
+    ports:
+    - 8080:8080
+    links:
+    - mongodb
